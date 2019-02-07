@@ -67,6 +67,9 @@ class OrderController extends Controller
      */
     public function run(Request $request)
     {
+        if (empty(Auth::user())) {
+            return view('welcome');
+        }
         $goods_id = isset($request->goods_id) ? (int)$request->goods_id : 0; // 商品id
         $goods_num = (int)Redis::get('goods_name:' . $goods_id);
         $user_id = Auth::user()->id;
